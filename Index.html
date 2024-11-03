@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>वेबसाइट डिज़ाइन</title>
+    <style>
+        /* बॉडी और फॉन्ट के बेसिक स्टाइल */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+
+        /* नेविगेशन बार */
+        .navbar {
+            background-color: #000;
+            color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+        }
+
+        .logo img {
+            height: 40px;
+        }
+
+        .menu {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+            margin: 0;
+            padding: 0;
+        }
+
+        .menu li {
+            display: inline;
+        }
+
+        .menu a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        .menu a:hover {
+            color: #ddd;
+        }
+
+        /* मुख्य कंटेंट सेक्शन */
+        .main-content {
+            display: flex;
+            justify-content: space-between;
+            padding: 30px;
+            width: 95%;
+            height: 460px; /* स्लाइडर और फॉर्म दोनों की ऊँचाई यहाँ पर सेट करें */
+        }
+
+        .slider {
+            width: 70%;
+            height: 100%; /* स्लाइडर की ऊँचाई को 100% पर सेट करें */
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .slides {
+            display: flex;
+            transition: transform 1s ease;
+            height: 100%;
+        }
+
+        .slide {
+            min-width: 100%;
+            height: 100%; /* स्लाइड की ऊँचाई सेट करें */
+        }
+
+        .slide img {
+            width: 100%;
+            height: 100%; /* इमेज की ऊँचाई को स्लाइड के बराबर किया */
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        /* एरो बटन स्टाइल */
+        .arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 20px;
+            border-radius: 50%;
+            transition: background-color 0.3s;
+        }
+
+        .arrow:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .arrow-left {
+            left: 10px;
+        }
+
+        .arrow-right {
+            right: 10px;
+        }
+
+        /* फॉर्म सेक्शन */
+        .form-container {
+            width: 30%;
+            background-color: #fff;
+            padding: 20px;
+            margin-left: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            height: 91%; /* स्लाइडर की ऊँचाई के बराबर सेट करें */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between; /* फॉर्म के अंदर सामग्री को समान रूप से फैलाना */
+        }
+
+        .form-container h2 {
+            text-align: center;
+            margin-bottom: 10px;
+            margin-top: -10px;
+            color: #007bff;
+            font-size: 20px; /* फ़ॉन्ट साइज बढ़ाया गया */
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+            flex-grow: 1; /* फॉर्म ग्रुप्स को समान स्थान देने के लिए */
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            text-align: left;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 5px; /* पैडिंग बढ़ाई गई */
+            font-size: 14px; /* फ़ॉन्ट साइज बढ़ाया गया */
+            border: 2px solid #007bff; /* बॉर्डर रंग बदला गया */
+            border-radius: 5px;
+            box-sizing: border-box;
+            transition: border-color 0.3s; /* बॉर्डर रंग के लिए ट्रांजिशन जोड़ा गया */
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: #0056b3; /* फोकस होने पर बॉर्डर रंग */
+            outline: none; /* फोकस पर आउटलाइन हटा दी गई */
+        }
+
+        .form-group input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+            border: none;
+            width: 100%;
+            padding: 12px; /* बटन की पैडिंग बढ़ाई गई */
+            font-size: 14px;
+            transition: background-color 0.3s, transform 0.2s;
+            border-radius: 5px; /* बटन के कोने को गोल बनाया गया */
+        }
+
+        .form-group input[type="submit"]:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        /* फॉर्म ग्रुप्स के बीच में स्पेसिंग जोड़ने के लिए */
+        .form-group:not(:last-child) {
+            margin-bottom: 20px; /* अंतिम फॉर्म ग्रुप के लिए स्पेसिंग को हटा दिया गया */
+        }
+        
+                 /* "Know Your Scholarship" सेक्शन */
+     /* "Know Your Scholarship" सेक्शन के लिए नए स्टाइल */
+.scholarship-section {
+    max-width: 92%;
+    margin: 40px 0;
+    margin-left: 30px;
+    text-align: center;
+    background-color: #e7f3ff; /* बैकग्राउंड रंग */
+    padding: 20px; /* अंदर की पैडिंग */
+    border-radius: 10px; /* गोल कोने */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* हल्की छाया */
+}
+
+.columns {
+    display: flex;
+    justify-content: center;
+    padding: 0 20px;
+    margin-bottom: 20px;
+}
+
+.column {
+    flex: 1;
+    margin: 0 10px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 300px; /* Input box को छोटा करने के लिए अधिकतम चौड़ाई सेट की */
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* इनपुट को सेंटर में रखने के लिए */
+}
+
+.results {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    flex-wrap: nowrap; /* सभी बॉक्स को एक ही पंक्ति में रखने के लिए */
+    overflow-x: auto; /* यदि बॉक्स चौड़े होते हैं, तो स्क्रॉलिंग सक्षम करें */
+    padding: 10px 0; /* ऊपर-नीचे पैडिंग */
+}
+
+.result-column {
+    background-color: #e7f3ff;
+    border: 1px solid #007bff;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 5px;
+    flex: 0 0 23%; /* प्रत्येक बॉक्स की चौड़ाई लगभग 23% करें, ताकि चार बॉक्स एक पंक्ति में फिट हो सकें */
+    max-width: 23%; /* अधिकतम चौड़ाई को 23% पर सेट करें */
+    transition: transform 0.2s;
+    box-sizing: border-box; /* बॉक्स का आकार पैडिंग और बॉर्डर को शामिल करने के लिए */
+    text-align: left;
+}
+    </style>
+</head>
+<body>
+
+    <!-- नेविगेशन बार -->
+    <header class="navbar">
+        <div class="logo">
+            <img src="logo.png" alt="लोगो">
+        </div>
+        <ul class="menu">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Our Achievements</a></li>
+            <li><a href="#">Courses</a></li>
+            <li><a href="#">Batches</a></li>
+            <li><a href="#">Why Motion</a></li>
+            <li><a href="#">Testimonials</a></li>
+            <li><a href="#">News and Media</a></li>
+        </ul>
+    </header>
+
+    <!-- मुख्य कंटेंट सेक्शन -->
+    <div class="main-content">
+        <!-- स्लाइडर सेक्शन -->
+        <div class="slider">
+            <div class="slides">
+                <div class="slide">
+                    <img src="Banner%201.jpeg" alt="बैनर 1">
+                </div>
+                <div class="slide">
+                    <img src="Banner%202.jpeg" alt="बैनर 2">
+                </div>
+            </div>
+            <button class="arrow arrow-left" onclick="showPreviousSlide()">&#10094;</button>
+            <button class="arrow arrow-right" onclick="showNextSlide()">&#10095;</button>
+        </div>
+
+        <!-- फॉर्म सेक्शन -->
+        <div class="form-container">
+            <h2>Registration Form</h2>
+            <form>
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="mobile">Mobile</label>
+                    <input type="text" id="mobile" name="mobile" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">E-Mail</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="class">Select Class</label>
+                    <select id="class" name="class" required>
+                        <option value="">Select Class</option>
+                        <option value="10">Class 10</option>
+                        <option value="11">Class 11</option>
+                        <option value="12">Class 12</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="course">Select Course</label>
+                    <select id="course" name="course" required>
+                        <option value="">Select Course</option>
+                        <option value="engineering">Engineering</option>
+                        <option value="medical">Medical</option>
+                        <option value="foundation">Foundation</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Submit">
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    
+<!-- "Know Your Scholarship" सेक्शन -->
+<div class="scholarship-section">
+    <h2>Know Your Scholarship</h2>
+    <div class="columns">
+        <div class="column">
+            <div class="form-group">
+                <label for="scholarship-mobile">Mobile Number</label>
+                <input type="text" id="scholarship-mobile" name="mobile" required placeholder="Enter your mobile number">
+            </div>
+            <button class="view-button">View Your Scholarship</button>
+        </div>
+    </div>
+   <div class="results">
+    <div class="result-column" id="name-column">Name: <span id="name-result">--</span></div>
+    <div class="result-column" id="class-column">Class: <span id="class-result">--</span></div>
+    <div class="result-column" id="course-column">Course: <span id="course-result">--</span></div>
+    <div class="result-column" id="percentage-column">Scholarship: <span id="percentage-result">--</span></div>
+</div>
+</div>
+    
+    <script>
+let currentSlide = 0;
+
+function showSlide(index) {
+    const slides = document.querySelector('.slides');
+    const totalSlides = slides.children.length;
+
+    // Wrap around the slides
+    if (index >= totalSlides) {
+        currentSlide = 0;
+    } else if (index < 0) {
+        currentSlide = totalSlides - 1;
+    } else {
+        currentSlide = index;
+    }
+
+    // Update slide position
+    slides.style.transform = `translateX(-${currentSlide * 100}%)`;
+}
+
+function showNextSlide() {
+    showSlide(currentSlide + 1);
+}
+
+function showPreviousSlide() {
+    showSlide(currentSlide - 1);
+}
+
+// "View Your Scholarship" बटन पर क्लिक इवेंट लिसनर
+
+const SHEET_ID = '1u9KsNP4Q8mIOf1oGsR7cPCQpHc_qqThbwLmCqz2Q6Uo'; // अपनी Sheet ID डालें
+const API_KEY = 'AIzaSyDH5-UEE6KdpHKK704jkKWjoPgpa-fTd5I'; // अपनी API Key डालें
+const SHEET_RANGE = 'Sheet1!A1:E200'; // सही रेंज सेट करें
+
+document.querySelector('.view-button').addEventListener('click', function (event) {
+    event.preventDefault();
+
+    const mobile = document.getElementById('scholarship-mobile').value;
+    const url = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${SHEET_RANGE}?key=${API_KEY}`;
+
+    fetch(url)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            const rows = data.values || []; // डेटा प्राप्त करें
+            let found = false;
+
+            for (let i = 0; i < rows.length; i++) {
+                if (rows[i][1] === mobile) { // कॉलम 1 में मोबाइल नंबर खोजें
+                    document.getElementById('name-result').innerText = rows[i][0]; // नाम
+                    document.getElementById('class-result').innerText = rows[i][2]; // कक्षा
+                    document.getElementById('course-result').innerText = rows[i][3]; // कोर्स
+                    document.getElementById('percentage-result').innerText = rows[i][4]; // छात्रवृत्ति
+                    found = true;
+                    break;
+                }
+            }
+
+            if (!found) {
+                alert('No data found for this mobile number.');
+                document.getElementById('name-result').innerText = '--';
+                document.getElementById('class-result').innerText = '--';
+                document.getElementById('course-result').innerText = '--';
+                document.getElementById('percentage-result').innerText = '--';
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching data:', error);
+            alert('Error fetching data. Please check your network and try again.');
+        });
+});
+    </script>
+
+    
+</body>
+</html>
